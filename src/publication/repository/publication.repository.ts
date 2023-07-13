@@ -22,7 +22,7 @@ export class PublicationRepository {
     })
   }
 
-  async findAllUsers() {
+  async findAll() {
     return await this.prisma.publication.findMany();
   }
 }

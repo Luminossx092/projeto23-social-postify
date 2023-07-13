@@ -13,8 +13,8 @@ export class PublicationService {
     return publication;
   }
 
-  findAll() {
-    return `This action returns all publication`;
+  async findAll() {
+    return await this.publicationsRepository.findAll();
   }
 }
 
