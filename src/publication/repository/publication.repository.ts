@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreatePublicationDto } from '../dto/create-publication.dto';
 
 @Injectable()
 export class PublicationRepository {
@@ -13,6 +12,14 @@ export class PublicationRepository {
         dateToPublish: new Date(data.dateToPublish)
       }
     });
+  }
+
+  async findByTitle(title) {
+    return await this.prisma.publication.findFirst({
+      where: {
+        title
+      }
+    })
   }
 
   async findAllUsers() {
