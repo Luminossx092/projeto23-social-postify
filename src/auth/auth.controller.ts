@@ -6,7 +6,7 @@ import { AuthGuard } from "./authGuard/auth.guard";
 import { UserRequest } from "./decorators/user.decorator";
 import { User } from "@prisma/client";
 
-@Controller("auth")
+@Controller("")
 export class AuthController {
 
   constructor(private readonly authService: AuthService) { }

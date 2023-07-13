@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UsersRepository } from "./repository/user.repository";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
@@ -10,7 +11,10 @@ export class UsersService {
     const email = await this.usersRepository.findUserByEmail(user.email);
     if (email) throw new HttpException('Email already exists', HttpStatus.CONFLICT);
 
-    return await this.usersRepository.addUser(user);
+    const hashPassword = bcrypt.hashSync(user.password, 10);
+
+    return await this.usersRepository.addUser({ ...user,
+      password: hashPassword,});
   }
 
   async findUserById(id: string) {

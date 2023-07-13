@@ -29,8 +29,7 @@ export class AuthService {
     if (!user) throw new UnauthorizedException('Email or password invalid');
 
     const validPassword = bcrypt.compareSync(password, user.password);
-    if (!validPassword)
-      throw new UnauthorizedException('Email or password invalid');
+    if (!validPassword) throw new UnauthorizedException('Email or password invalid');
 
     return this.createToken(user);
   }
