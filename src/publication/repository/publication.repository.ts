@@ -4,13 +4,18 @@ import { CreatePublicationDto } from '../dto/create-publication.dto';
 
 @Injectable()
 export class PublicationRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  async create(data: CreatePublicationDto) {
-    return await this.prisma.publication.create({ data: data });
+  async create(data) {
+    return await this.prisma.publication.create({
+      data: {
+        ...data,
+        dateToPublish: new Date(data.dateToPublish)
+      }
+    });
   }
 
   async findAllUsers() {
-    return await this.prisma.publication.findMany({});
+    return await this.prisma.publication.findMany();
   }
 }
