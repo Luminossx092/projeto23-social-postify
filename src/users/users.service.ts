@@ -7,6 +7,9 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) { }
 
   async addUser(user: CreateUserDto) {
+    const email = await this.usersRepository.findUserByEmail(user.email);
+    if (email) throw new HttpException('Email already exists', HttpStatus.CONFLICT);
+
     return await this.usersRepository.addUser(user);
   }
 
